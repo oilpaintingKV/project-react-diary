@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const DiaryEditor = () => {
+  const authorInput = useRef();
+  const contentInput = useRef();
   const [state, setState] = useState({
     author: '',
     content: '',
     emotion: 1,
   });
-
-  // const [author, setAuthor] = useState('');
-  // const [content, setContent] = useState('');
 
   const handleChangeState = (e) => {
     setState({
@@ -18,7 +17,16 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    console.log(state);
+    if (state.author.length < 1) {
+      authorInput.current.focus();
+      return;
+    }
+
+    if (state.content.length < 5) {
+      contentInput.current.focus();
+      return;
+    }
+
     alert('saved!');
   };
 
@@ -27,6 +35,7 @@ const DiaryEditor = () => {
       <h1>Today's Diary</h1>
       <div>
         <input
+          ref={authorInput}
           name='author'
           value={state.author}
           onChange={handleChangeState}
@@ -34,6 +43,7 @@ const DiaryEditor = () => {
       </div>
       <div>
         <textarea
+          ref={contentInput}
           name='content'
           value={state.content}
           onChange={handleChangeState}
