@@ -32,7 +32,7 @@ const DiaryEditor = () => {
 
   return (
     <div className='DiaryEditor'>
-      <h1>Today's Diary</h1>
+      <h2>Today's Diary</h2>
       <div>
         <input
           ref={authorInput}
