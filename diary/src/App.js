@@ -42,11 +42,18 @@ function App() {
     dataId.current += 1;
     setData([newItem, ...data]);
   };
+
+  const onDelete = (targetId) => {
+    console.log(`${targetId} is deleted!`);
+    const newDiaryList = data.filter((it) => it.id !== targetId);
+    setData(newDiaryList);
+  };
+
   return (
     <div className='App'>
       <h1>My Diary</h1>
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList diaryList={data} />
+      <DiaryList onDelete={onDelete} diaryList={data} />
     </div>
   );
 }
