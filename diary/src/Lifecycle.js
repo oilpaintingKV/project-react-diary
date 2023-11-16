@@ -1,38 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
-const Lifecycle = () => {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState('');
-
+const UnmountTest = () => {
   useEffect(() => {
     console.log('Mount!');
+
+    return () => {
+      // unmount point
+      console.log('Unmount!');
+    };
   }, []);
 
-  useEffect(() => {
-    console.log('Update');
-  });
+  return <div>Unmount Testing Component</div>;
+};
 
-  useEffect(() => {
-    console.log(`count is update : ${count}`);
-    if (count > 5) {
-      alert('count exceeded 5. Therefore, initialize to 1.');
-      setCount(1);
-    }
-  }, [count]);
-
-  useEffect(() => {
-    console.log(`text is update : ${text}`);
-  }, [text]);
+const Lifecycle = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const toggle = () => setIsVisible(!isVisible);
 
   return (
     <div style={{ padding: 20 }}>
-      <div>
-        {count}
-        <button onClick={() => setCount(count + 1)}>+</button>
-      </div>
-      <div>
-        <input value={text} onChange={(e) => setText(e.target.value)} />
-      </div>
+      <button onClick={toggle}>on/off</button>
+      {isVisible && <UnmountTest />}
     </div>
   );
 };
